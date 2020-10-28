@@ -75,3 +75,40 @@ exports.remove = async (req, res) => {
       });
     });
 };
+
+exports.link = async (req, res) => {
+  const relation = {
+    movie_id: req.body.movieId,
+    actor_id: req.body.actorId,
+  };
+
+  await store
+    .upsert(TABLA + '_actor', 'movie_actor_id', relation)
+    .then(() => {
+      res.status(201).json({
+        message: 'Relation created successfully',
+      });
+    })
+    .catch((err) => {
+      res.status(204).json({
+        message: 'Movie or Actor not founded',
+      });
+    });
+};
+
+exports.unlink = async (req, res) => {
+  const { movieId, actorId } = req.body;
+  const query = `DELETE FROM ${TABLA}_actor WHERE movie_id = ${movieId} and actor_id = ${actorId}`;
+  await store
+    .query(query)
+    .then((data) => {
+      res.status(205).json({
+        message: 'Relation removed successfully',
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: 'Internal error',
+      });
+    });
+};

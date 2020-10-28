@@ -97,6 +97,15 @@ function remove(table, name_id, id) {
   });
 }
 
+function query(query) {
+  return new Promise((resolve, reject) => {
+    connection.query(query, (err, result) => {
+      if (err) return reject(err);
+      resolve(result);
+    });
+  });
+}
+
 module.exports = {
   list,
   get,
@@ -104,4 +113,5 @@ module.exports = {
   update,
   upsert,
   remove,
+  query,
 };
