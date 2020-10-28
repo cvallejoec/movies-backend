@@ -51,6 +51,22 @@ exports.upsert = async (req, res) => {
     .then((data) => {
       res.status(200).json({
         message,
+        data,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: 'Internal error',
+      });
+    });
+};
+
+exports.remove = async (req, res) => {
+  await store
+    .remove(TABLA, NAME_ID, req.params.id)
+    .then(() => {
+      res.status(205).json({
+        message: 'Movie removed successfully',
       });
     })
     .catch((err) => {

@@ -50,6 +50,7 @@ exports.upsert = async (req, res) => {
     .then((data) => {
       res.status(200).json({
         message,
+        data,
       });
     })
     .catch((err) => {

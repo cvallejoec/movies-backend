@@ -85,10 +85,23 @@ function upsert(table, name_id, data) {
   }
 }
 
+function remove(table, name_id, id) {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `DELETE FROM ${table} WHERE ${name_id} = ${id}`,
+      (err, result) => {
+        if (err) return reject(err);
+        resolve(result);
+      }
+    );
+  });
+}
+
 module.exports = {
   list,
   get,
   insert,
   update,
   upsert,
+  remove,
 };
