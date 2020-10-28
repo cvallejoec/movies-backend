@@ -9,11 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(require('cors')());
 
 // Router
-app.get('/', (req, res) => {
-  res.status(200).json({
-    hello: 'world!',
-  });
-});
+app.use('/api/movie', require('./movie/network'));
 
 const errorHandler = require('../handlers/errorHandler');
 app.use(errorHandler.notFound);
