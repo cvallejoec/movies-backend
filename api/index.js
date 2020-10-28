@@ -10,6 +10,7 @@ app.use(require('cors')());
 
 // Router
 app.use('/api/movie', require('./movie/network'));
+app.use('/api/actor', require('./actor/network'));
 
 const errorHandler = require('../handlers/errorHandler');
 app.use(errorHandler.notFound);

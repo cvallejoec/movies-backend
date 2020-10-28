@@ -19,7 +19,6 @@ exports.list = async (req, res) => {
 
 exports.get = async (req, res) => {
   const movie = await store.get(TABLA, NAME_ID, req.params.id);
-  console.log(movie);
   if (movie.length > 0) {
     res.status(200).json({
       message: 'Movie retrieved successfully',
@@ -50,13 +49,11 @@ exports.upsert = async (req, res) => {
   await store
     .upsert(TABLA, NAME_ID, movie)
     .then((data) => {
-      console.log(data);
       res.status(200).json({
         message,
       });
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).json({
         message: 'Internal error',
       });
