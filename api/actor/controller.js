@@ -59,3 +59,22 @@ exports.upsert = async (req, res) => {
       });
     });
 };
+
+exports.getActorOnMovie = async (req, res) => {
+  const joinTable = `movie_${TABLA}`;
+  const movieId = req.params.id;
+  const query = `SELECT * FROM ${TABLA} INNER JOIN ${joinTable} ON ${joinTable}.movie_id = ${movieId} AND ${TABLA}.actor_id = ${joinTable}.actor_id`;
+  await store
+    .query(query)
+    .then((data) => {
+      res.status(200).json({
+        message: 'Actors retrieved successfully',
+        data,
+      });
+    })
+    .catch((err) => {
+      res.status(204).json({
+        message: 'The movie was not founded',
+      });
+    });
+};

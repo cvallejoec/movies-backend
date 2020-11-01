@@ -62,6 +62,8 @@ exports.upsert = async (req, res) => {
 };
 
 exports.remove = async (req, res) => {
+  await store.remove(`${TABLA}_actor`, NAME_ID, req.params.id);
+
   await store
     .remove(TABLA, NAME_ID, req.params.id)
     .then(() => {
